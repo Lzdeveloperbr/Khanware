@@ -44,7 +44,7 @@ document.head.appendChild(Object.assign(document.createElement("style"), { inner
     a { color: #00b09b; text-decoration: underline; }
     #splashScreen { background-color: rgba(40, 44, 52, 0.95); color: #ffffff; padding: 50px; text-align: center; }
     #splashScreen h1 { font-size: 2em; color: #f4b400; }
-    #dropdownMenu { background-color: #333; color: #e6e6e6; position: absolute; top: 10px; right: 10px; padding: 15px; border-radius: 8px; }
+    #dropdownMenu { background-color: #333; color: #e6e6e6; position: fixed; top: 10px; right: 10px; padding: 15px; border-radius: 8px; z-index: 9999; }
     #dropdownMenu ul { list-style-type: none; padding: 0; }
     #dropdownMenu ul li { margin: 10px 0; }
     #dropdownMenu ul li a { color: #00b09b; cursor: pointer; }
@@ -113,3 +113,5 @@ sendToast("🌐 Khanware hackativado com sucesso! Tá na mão, @Dev.godoy!");
 hideSplashScreen();
 setupMenu();
 autoAnswer();
+
+        
