@@ -15,8 +15,8 @@ let user = {
 let loadedPlugins = [];
 
 // Elementos
-const dropdownMenu = document.createElement('dropDownMenu');
-const splashScreen = document.createElement('splashScreen');
+const dropdownMenu = document.createElement('div');
+const splashScreen = document.createElement('div');
 
 // Funções Globais (spoofs e hacks)
 window.features = {
@@ -44,6 +44,10 @@ document.head.appendChild(Object.assign(document.createElement("style"), { inner
     a { color: #00b09b; text-decoration: underline; }
     #splashScreen { background-color: rgba(40, 44, 52, 0.95); color: #ffffff; padding: 50px; text-align: center; }
     #splashScreen h1 { font-size: 2em; color: #f4b400; }
+    #dropdownMenu { background-color: #333; color: #e6e6e6; position: absolute; top: 10px; right: 10px; padding: 15px; border-radius: 8px; }
+    #dropdownMenu ul { list-style-type: none; padding: 0; }
+    #dropdownMenu ul li { margin: 10px 0; }
+    #dropdownMenu ul li a { color: #00b09b; cursor: pointer; }
 ` }));
 
 // Função de notificação com toque engraçado
@@ -53,6 +57,7 @@ const sendToast = (message) => {
 
 // Função de tela de splash personalizada
 const showSplashScreen = () => {
+    splashScreen.id = "splashScreen";
     splashScreen.innerHTML = `<h1>Khanware ${ver}</h1><p>Desenvolvido por <a href="#">@Dev.godoy</a> - Te levei pro próximo nível! 💥</p>`;
     document.body.appendChild(splashScreen);
 };
@@ -61,8 +66,9 @@ const hideSplashScreen = () => {
     splashScreen.remove();
 };
 
-// Menu de configurações com visual novo e ícones engraçados
+// Menu de configurações com visual novo e eventos de clique
 const setupMenu = () => {
+    dropdownMenu.id = "dropdownMenu";
     dropdownMenu.innerHTML = `
         <h2>Khanware ${ver} - 🎮 Modo Hackativado 🎮</h2>
         <ul>
@@ -71,13 +77,25 @@ const setupMenu = () => {
         </ul>
     `;
     document.body.appendChild(dropdownMenu);
+
+    // Eventos de clique nos itens do menu
+    document.getElementById('spoof-question').onclick = () => {
+        window.features.questionSpoof = !window.features.questionSpoof;
+        sendToast(`📌 Spoof Question ${window.features.questionSpoof ? "ativado" : "desativado"}!`);
+    };
+
+    document.getElementById('auto-answer').onclick = () => {
+        window.features.autoAnswer = !window.features.autoAnswer;
+        sendToast(`🤖 Auto Answer ${window.features.autoAnswer ? "ativado" : "desativado"}!`);
+    };
 };
 
 // Função de Auto Answer com loop infinito
 const autoAnswer = async () => {
     while (true) {
-        if (features.autoAnswer) {
+        if (window.features.autoAnswer) {
             // Lógica de resposta automática
+            console.log("Respondendo automaticamente...");
         }
         await new Promise(resolve => setTimeout(resolve, 1000));
     }
